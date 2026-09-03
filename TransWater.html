@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <title>南水北调工程可视化</title>
+    <script src="./Cesium/Cesium.js"></script>
+    <script type="text/javascript" src="./js2/jquery.js"></script>
+    <script type="text/javascript" src="./js2/echarts.min.js"></script>
+    <script type="text/javascript" src="./js2/china.js"></script>
+    <script type="text/javascript" src="./js2/map.js"></script>
+    <script type="text/javascript" src="./js2/js.js"></script>
+    <script type="text/javascript" src="./js2/Bubble.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/layer.css">
+    <style>
+      @import url(./Cesium/Widgets/widgets.css);
+      html,
+      body,
+      #cesiumContainer {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    </style>
+    <style type="text/css">
+        @font-face {
+          font-family: 'iconfont';
+          src: url('font/iconfont.woff2?t=1651660703904') format('woff2'),
+               url('font/iconfont.woff?t=1651660703904') format('woff'),
+               url('font/iconfont.ttf?t=1651660703904') format('truetype');
+        }
+        .iconfont {
+          font-family: "iconfont";
+          font-size: 20px;
+          font-style: normal;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+    
+    <style>
+        /* defaults */
+        /* =============================================== */
+        *,
+        *::after,
+        *::before {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        html {
+          font-size: 62.5%;
+        }
+        
+        body {
+          --light: hsl(0, 0%, 100%);
+          --background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', sans-serif;
+        }
+        
+        a,
+        a:link {
+          font-family: inherit;
+          text-decoration: none;
+        }
+        
+        /* modal */
+        /* =============================================== */
+        .modal-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 10;
+        
+          display: none;
+          justify-content: center;
+          align-items: center;
+        
+          width: 100%;
+          height: 100%;
+        
+          background: hsla(0, 0%, 40%, .6);
+        }
+        
+        /* using :target */
+        .modal-container:target {
+          display: flex;
+        }
+        
+        .modal {
+          width: 60rem;
+          padding: 4rem 2rem;
+          border-radius: .8rem;
+        
+          color: var(--light);
+          background: var(--background);
+          box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
+          position: relative;
+        
+          overflow: hidden;
+        }
+        
+        .modal__details {
+          text-align: center;
+        
+          margin-bottom: 4rem;
+          padding-bottom: 4rem;
+          border-bottom: 1px solid hsla(0, 0%, 100%, .4);
+        }
+        
+        .modal__title {
+          font-size: 3.2rem;
+        }
+        
+        .modal__description {
+          margin-top: 2rem;
+        
+          font-size: 1.6rem;
+          font-style: italic;
+        }
+        
+        .modal__text {
+          padding: 0 4rem;
+          margin-bottom: 4rem;
+        
+          font-size: 1.6rem;
+          line-height: 2;
+        }
+        
+        .modal__text::before {
+          content: '';
+        
+          position: absolute;
+          top: 0%;
+          left: 100%;
+          transform: translate(-50%, -50%);
+        
+          width: 18rem;
+          height: 18rem;
+          border: 1px solid hsla(0, 0%, 100%, .2);
+          border-radius: 100rem;
+        
+          pointer-events: none;
+        }
+        
+        .modal__btn {
+          padding: 1rem 1.6rem;
+          border: 1px solid hsla(0, 0%, 100%, .4);
+          border-radius: 100rem;
+        
+          color: inherit;
+          background: transparent;
+          font-size: 1.4rem;
+          font-family: inherit;
+          letter-spacing: .2rem;
+        
+          transition: .2s;
+          cursor: pointer;
+        }
+        
+        .modal__btn:hover,
+        .modal__btn:focus {
+          border-color: hsla(0, 0%, 100%, .6);
+          transform: translateY(-.2rem);
+        }
+        
+        /* links */
+        /* =============================================== */
+        .link-1 {
+          font-size: 1.8rem;
+        
+          color: var(--light);
+          background: var(--background);
+          box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
+          border-radius: 100rem;
+          padding: 1.4rem 3.2rem;
+        
+          transition: .2s;
+        }
+        
+        .link-1:hover,
+        .link-1:focus {
+          transform: translateY(-.2rem);
+          box-shadow: 0 0 4.4rem .2rem hsla(236, 50%, 50%, 0.4);
+        }
+        
+        .link-2 {
+          width: 4rem;
+          height: 4rem;
+          border: 1px solid hsla(0, 0%, 100%, .4);
+          border-radius: 100rem;
+        
+          color: inherit;
+          font-size: 2.2rem;
+        
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+        
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        
+          transition: .2s;
+        }
+        
+        .link-2::before {
+          content: '×';
+        
+          transform: translateY(-.1rem);
+        }
+        
+        .link-2:hover,
+        .link-2:focus {
+          border-color: hsla(0, 0%, 100%, .6);
+          transform: translateY(-.2rem);
+        }
+        
+        /* Second Version Link */
+        /* =============================================== */
+        .second-version-link,
+        .second-version-link:link {
+          color: hsl(236, 50%, 50%);
+          padding: .8rem 1.6rem .8rem .2rem;
+          border-bottom: 2px solid hsl(236, 50%, 50%);
+        
+          font-size: 1.4rem;
+          font-weight: bold;
+        
+          position: absolute;
+          top: 4rem;
+          right: 4rem;
+        }
+        
+        .second-version-link::after {
+          content: '\2197';
+        
+          position: absolute;
+          top: 0;
+          right: 0;
+        
+          font-size: .9em;
+        }
+        
+        .abs-site-link {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          color: hsla(0, 0%, 0%, .6);
+          font-size: 1.6rem;
+        }
+        .map3d-clear {
+        border-radius: 5px;
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        left: 6px;
+        bottom: 6px;
+        background: #303336 url(./data/西.png);
+        border: 1px solid #303336;
+        background-size: cover;
+        z-index:6;
+        cursor:pointer;
+        }
+        .map3d-clear:hover{
+        color: #fff;
+        fill: #fff;
+        background: #48b url(./data/西.png);
+        background-size: cover;
+        border-color: #aef;
+        box-shadow: 0 0 8px #fff;
+        }
+        .map3d-clear2 {
+        border-radius: 5px;
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        left: 6px;
+        bottom: 6px;
+        background: #303336 url(./data/中.png);
+        border: 1px solid #303336;
+        background-size: cover;
+        z-index:6;
+        cursor:pointer;
+        }
+        .map3d-clear2:hover{
+        color: #fff;
+        fill: #fff;
+        background: #48b url(./data/中.png);
+        background-size: cover;
+        border-color: #aef;
+        box-shadow: 0 0 8px #fff;
+        }
+        .map3d-clear3 {
+        border-radius: 5px;
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        left: 6px;
+        bottom: 6px;
+        background: #303336 url(./data/东.png);
+        border: 1px solid #303336;
+        background-size: cover;
+        z-index:6;
+        cursor:pointer;
+        }
+        .map3d-clear3:hover{
+        color: #fff;
+        fill: #fff;
+        background: #48b url(./data/东.png);
+        background-size: cover;
+        border-color: #aef;
+        box-shadow: 0 0 8px #fff;
+        }
+
+    </style>
+</head>
+  <body translate="no" >
+  <div class="head clearfix">
+
+
+      <h1 class="pulll_left">南 水 北 调 工 程 可 视 化</h1>
+        <div class="menu menu2 pulll_left">
+        <ul>      
+          <li><a href="index.html"><span class="iconfont">&#xe648;</span></a></li>
+          <li><a href="present.html"><span class="iconfont">&#xe671;</span></a></li>
+          <li><a href="TransWater.html "><span class="iconfont" style="color: yellow;">&#xe737;</span></a></li>
+          <li><a href="policy.html"><span class="iconfont">&#xe62e;</span></a></li>
+          <li><a href="#modal-opened" class="link-1" id="modal-closed">帮助</a></li>       
+        </ul>
+        </div>
+        
+        <div class="time" id="showTime"></div>
+        <script>
+             t = new Date();
+        var y=t.getFullYear();
+        var mt=t.getMonth()+1;
+        var day=t.getDate();
+           var h=t.getHours();//获取时
+           var m=t.getMinutes();//获取分
+           var s=t.getSeconds();//获取秒
+           document.getElementById("showTime").innerHTML = y+"/"+mt+"/"+day+" "+h+":"+m+":"+s+"";
+
+        t = setTimeout(time,1000);//開始运行
+        function time()
+        {
+           clearTimeout(t);//清除定时器
+           dt = new Date();
+        var y=dt.getFullYear();
+        var mt=dt.getMonth()+1;
+        var day=dt.getDate();
+           var h=dt.getHours();//获取时
+           var m=dt.getMinutes();//获取分
+           var s=dt.getSeconds();//获取秒
+           document.getElementById("showTime").innerHTML = y+"/"+mt+"/"+day+" "+h+":"+m+":"+s+"";
+           t = setTimeout(time,1000); //设定定时器，循环运行     
+        } 
+    
+    </script>
+    
+  </div>
+  <div class="mainbox">
+    <ul class="clearfix nav1">
+      <li style="width: 30%">
+        <div class="box">
+          <div class="tit">2050年规划调水规模</div>
+          <div id="chart-panel_2"  style="height: 250px;"></div>
+          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+          <script type="text/javascript">
+          // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('chart-panel_2'));
+          // var img = 'data:image/png;base64,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';
+          var trafficWay = [{
+          name: '工业和城镇用水',
+          value: 40
+      }, {
+          name: '农业及生态用水',
+          value: 60
+      }];
+      var trafficWay2 = [{
+          name: '工业和城镇用水',
+          value: 65
+      }, {
+          name: '农业及生态用水',
+          value: 35
+      }];
+      var trafficWay3 = [{
+          name: '工业和城镇用水',
+          value: 50
+      }, {
+          name: '农业及生态用水',
+          value: 50
+      }];
+      var data = [];
+      var data2= [];
+      var data3= [];
+      var color = ['#00ffff', '#ff0', '#006ced', '#ffe000', '#ffa800', '#ff5b00', '#ff3000']
+      for (var i = 0; i < trafficWay.length; i++) {
+          data.push({
+              value: trafficWay[i].value,
+              name: trafficWay[i].name,
+              itemStyle: {
+                  label:{
+                      normal:{
+                          show:false
+                      }
+                  },
+                  normal: {
+                      borderWidth: 2,
+                      shadowBlur: 10,
+                      borderColor: color[i],
+                      shadowColor: color[i]
+                  }
+              }
+          }, {
+              value: 2,
+              name: '',
+              itemStyle: {
+                  normal: {
+                      label: {
+                          show: false
+                      },
+                      labelLine: {
+                          normal:{
+                              show: false
+                          }
+                      },
+                      color: 'rgba(0, 0, 0, 0)',
+                      borderColor: 'rgba(0, 0, 0, 0)',
+                      borderWidth: 0
+                  }
+              }
+          });
+      }
+      for (var i = 0; i < trafficWay2.length; i++) {
+          data2.push({
+              value: trafficWay2[i].value,
+              name: trafficWay2[i].name,
+              itemStyle: {
+                  label:{
+                      normal:{
+                          show:false
+                      }
+                  },
+                  normal: {
+                      borderWidth: 2,
+                      shadowBlur: 10,
+                      borderColor: color[i],
+                      shadowColor: color[i]
+                  }
+              }
+          }, {
+              value: 2,
+              name: '',
+              itemStyle: {
+                  normal: {
+                      label: {
+                          show: false
+                      },
+                      labelLine: {
+                          normal:{
+                              show: false
+                          }
+                      },
+                      color: 'rgba(0, 0, 0, 0)',
+                      borderColor: 'rgba(0, 0, 0, 0)',
+                      borderWidth: 0
+                  }
+              }
+          });
+      }
+      for (var i = 0; i < trafficWay3.length; i++) {
+          data3.push({
+              value: trafficWay3[i].value,
+              name: trafficWay3[i].name,
+              itemStyle: {
+                  label:{
+                      normal:{
+                          show:false
+                      }
+                  },
+                  normal: {
+                      borderWidth: 2,
+                      shadowBlur: 10,
+                      borderColor: color[i],
+                      shadowColor: color[i]
+                  }
+              }
+          }, {
+              value: 2,
+              name: '',
+              itemStyle: {
+                  normal: {
+                      label: {
+                          show: false
+                      },
+                      labelLine: {
+                          normal:{
+                              show: false
+                          }
+                      },
+                      color: 'rgba(0, 0, 0, 0)',
+                      borderColor: 'rgba(0, 0, 0, 0)',
+                      borderWidth: 0
+                  }
+              }
+          });
+      }
+      var seriesOption = [{
+          name: '',
+          type: 'pie',
+          clockWise: false,
+          radius: [45, 49],
+          center: ['20%', '30%'],
+          hoverAnimation: false,
+          itemStyle: {
+              normal: {
+                  label: {
+                      show: false,
+                      position: 'outside',
+                      color: '#ddd',
+                      formatter: function(params) {
+                          var percent = 0;
+                          var total = 0;
+                          for (var i = 0; i < trafficWay.length; i++) {
+                              total += trafficWay[i].value;
+                          }
+                          percent = ((params.value / total) * 100).toFixed(0);
+                          if (params.name !== '') {
+                              return   params.name + '\n' + '\n' + '占百分比：' + percent + '%';
+                          } else {
+                              return '';
+                          }
+                      },
+                  },
+                  labelLine: {
+                    show: false,
+                  }
+              }
+          },
+          data: data
+      },{
+          name: '',
+          type: 'pie',
+          clockWise: false,
+          radius: [45, 49],
+          center: ['80%', '30%'],
+          hoverAnimation: false,
+          itemStyle: {
+              normal: {
+                  label: {
+                      show: false,
+                      position: 'outside',
+                      color: '#ddd',
+                      formatter: function(params) {
+                          var percent = 0;
+                          var total = 0;
+                          for (var i = 0; i < trafficWay.length; i++) {
+                              total += trafficWay[i].value;
+                          }
+                          percent = ((params.value / total) * 100).toFixed(0);
+                          if (params.name !== '') {
+                              return   params.name + '\n' + '\n' + '占百分比：' + percent + '%';
+                          } else {
+                              return '';
+                          }
+                      },
+                  },
+                  labelLine: {
+                    show: false,
+                  }
+              }
+          },
+          data: data2
+      },{
+          name: '',
+          type: 'pie',
+          clockWise: false,
+          radius: [45, 49],
+          center: ['50%', '70%'],
+          hoverAnimation: false,
+          itemStyle: {
+              normal: {
+                  label: {
+                      show: false,
+                      position: 'outside',
+                      color: '#ddd',
+                      formatter: function(params) {
+                          var percent = 0;
+                          var total = 0;
+                          for (var i = 0; i < trafficWay.length; i++) {
+                              total += trafficWay[i].value;
+                          }
+                          percent = ((params.value / total) * 100).toFixed(0);
+                          if (params.name !== '') {
+                              return   params.name + '\n' + '\n' + '占百分比：' + percent + '%';
+                          } else {
+                              return '';
+                          }
+                      },
+                  },
+                  labelLine: {
+                    show: false,
+                  }
+              }
+          },
+          data: data3
+      },];
+      option = {
+          backgroundColor: '#0A2E5D',
+          color: color,
+          title: {
+              text: ' 148亿m3                                                       130亿m3    \n  东线                                                               中线  \n\n\n\n\n\n\n170亿m3\n西线',
+              top: '21%',
+              textAlign: "center",
+              left: "50%",
+              textStyle: {
+                  color: '#fff',
+                  fontSize: 12,
+                  fontWeight: '400'
+              },
+          },
+          /*graphic: {
+              elements: [{
+                  type: "image",
+                  z: 3,
+                  style: {
+                      //image: img,
+                      width: 178,
+                      height: 178
+                  },
+                  left: 'center',
+                  top: 'center',
+                  position: [100, 100]
+              }]
+          },*/
+          tooltip: {
+              show: true
+          },
+          legend: {
+              icon: "circle",
+              orient: 'horizontal',
+              // x: 'left',
+              data: ['工业和城镇用水', '农业及生态用水'],
+              align: 'right',
+              textStyle: {
+                  color: "#fff"
+              },
+              itemGap: 20
+          },
+          toolbox: {
+              show: false
+          },
+          series: seriesOption
+      }
+        
+      if(option){
+      myChart.setOption(option);
+      }
+          </script>
+          </div>
+          <div class="box">
+            <div class="tit">工程分期线路长度</div>
+            <div id="chart-panel" style="height: 350px;"></div>
+                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('chart-panel'));
+            let name = '单位：千米';
+            let dataArr = [
+                {
+                    name: '第一期',
+                    list: [
+                        {
+                            name: '西线',
+                            value: 131,
+                        },
+                        {
+                            name: '中线',
+                            value: 1390,
+                        },
+                        {
+                            name: '东线',
+                            value: 660,
+                        },
+                    ],
+                },
+                {
+                    name: '第二期',
+                    list: [
+                        {
+                            name: '西线',
+                            value: 288.7,
+                        },
+                        {
+                            name: '中线',
+                            value: 1390,
+                        },
+                        {
+                            name: '东线',
+                            value: 1150,
+                        },
+                    ],
+                },
+                {
+                    name: '第三期',
+                    list: [
+                        {
+                            name: '西线',
+                            value: 29.8,
+                        },
+                        {
+                            name: '中线',
+                            value: 1390,
+                        },
+                        {
+                            name: '东线',
+                            value: 1150,
+                        },
+                    ],
+                },
+            ];
+            // x轴
+            let nameArr = dataArr[0].list.map((it) => it.name);
+            // 颜色
+            let colors = ['rgba(0, 237, 253, 1)', 'rgba(1, 102, 235, 1)'];
+            option = {
+                backgroundColor: '#0e1c47',
+                color: colors,
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor:'rgba(1, 13, 19, 0.5)',
+                    // axisPointer: {
+                    //     // 坐标轴指示器，坐标轴触发有效
+                    //     type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    // },
+                    borderWidth: 0,
+                    axisPointer: {
+                        lineStyle: {
+                            color: 'rgba(11, 208, 241, 1)',
+                            type: 'slider',
+                        },
+                    },
+                    textStyle: {
+                        color: 'rgba(212, 232, 254, 1)',
+                        fontSize: 12,
+                    },
+                },
+                legend: {
+                    align: 'left',
+                    right: '10%',
+                    top: '2%',
+                    type: 'plain',
+                    textStyle: {
+                        color: 'rgba(212, 232, 254, 1)',
+                        fontSize: 14,
+                    },
+                    icon: 'rect',
+                    itemGap: 15,
+                    itemWidth: 5,
+                    itemHeight: 5,
+                    itemStyle: {
+                        borderWidth: 0,
+                    },
+                    // icon:'path://M0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z',
+                    data: dataArr.map((it) => it.name),
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true,
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: nameArr,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: '12',
+                                color: '#fff',
+                            },
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            //坐标轴轴线相关设置。数学上的x轴
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(108, 166, 219, 0.5)',
+                            },
+                        },
+                    },
+                ],
+                yAxis: [
+                    {
+                        name: name,
+                        nameTextStyle: {
+                            color: 'rgba(212, 232, 254, 1)',
+                            fontSize: 12,
+                        },
+                        type: 'value',
+                        splitLine: {
+                            lineStyle: {
+                                color: 'rgba(108, 166, 219, 0.5)',
+                                type: 'dashed',
+                            },
+                        }, //设置横线样式
+                        axisLine: {
+                            show: false,
+                            lineStyle: {
+                                color: '#233653',
+                            },
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: '12',
+                                color: '#fff',
+                            },
+                        },
+                    },
+                ],
+                series: [
+                    {
+                        name: dataArr[0].name,
+                        type: 'bar',
+                        stack: '排名',
+                        data: dataArr[0].list.map((it) => it.value),
+                        barWidth: 16,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                {
+                                    offset: 0,
+                                    color: 'rgba(1, 94, 234, 1)',
+                                },
+                                {
+                                    offset: 1,
+                                    color: 'rgba(0, 192, 250, 1)',
+                                },
+                            ]),
+                        },
+                    },
+                    {
+                        name: dataArr[1].name,
+                        type: 'bar',
+                        stack: '排名',
+                        data: dataArr[1].list.map((it) => it.value),
+                        barWidth: 16,
+                    },
+                    {
+                        name: dataArr[2].name,
+                        type: 'bar',
+                        stack: '排名',
+                        data: dataArr[2].list.map((it) => it.value),
+                        barWidth: 16,
+                    },
+                ],
+            };
+            let len = 0;
+            setInterval(() => {
+                if (len === nameArr.length) {
+                    len = 0;
+                }
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0,
+                    dataIndex: len,
+                });
+                len++;
+            }, 2000);
+              
+            if(option){
+            myChart.setOption(option);
+            }
+                </script>
+          </div>
+      </li>
+      <li style="width: 70%">
+      <div class="box">
+        <div class="boxnav mapc" style="height: 700px; position: relative">
+          <div class="mapnav">
+          <ul>
+            <li><div><span>调水规模</span><p>448亿m³</p></div></li>
+            <li><div><span>规划区涉及人口</span><p>4.38亿</p></div></li>
+            <li><div><span>规划干线总长度</span><p>4350km</p></div></li>
+            <li><div><span>工程移民人数</span><p>43.5万</p></div></li>
+            <li><div><span>总投资</span><p>约5000亿元</p></div></li>
+          </ul>
+          </div>
+        <div id="cesiumContainer" class="fullSize"></div>
+        <div id="creditContainer" style="display: none;"></div>
+        <script>
+          Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmNjAwNzYwNi1kODQ5LTRkMmEtYTY2OS1mMmE5OGY5M2E1ZmEiLCJpZCI6Mzk3LCJpYXQiOjE1MjUyMzUwODR9.ogSATdhje1Vn0Mxgl5gr1uE3BzkRslLGodOPf1IRk2g';
+          //构造地形提供者(Cesium.TerrainProvider)
+          //加载在线地形图数据
+          var worldTerrain =new Cesium.createWorldTerrain({ requestWaterMask : true, requestVertexNormals : true });
+          //构造地球浏览器（Cesium.Viewer）
+          var viewer =new Cesium.Viewer('cesiumContainer',{ terrainProvider: worldTerrain,
+            sceneModePicker:true,
+            baseLayerPicker:true,
+            animation:false,
+            timeline:false,
+            fullscreenButton:false,
+            vrButton:false} );
+          viewer._cesiumWidget._creditContainer.style.display="none";   //版权控件的显示隐藏
+
+
+          //默认起始位置设为中国
+          Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(100, 30, 105, 45);
+          viewer.camera.flyHome(2);
+          //调用中文注记服务
+          var imageryLbelProvider =new Cesium.WebMapTileServiceImageryProvider({
+            url:'https://t1.tianditu.com/cia_w/wmts?tk=f364d1865beaaa4303e9e5bf9c2b0ee1',  //f364d1865beaaa4303e9e5bf9c2b0ee1
+            layer: 'cia',
+            style: 'default',
+            format: 'tiles',
+            tileMatrixSetID: 'w',
+            maximumLevel: 18
+          });
+          var imageryLabel = viewer.imageryLayers.addImageryProvider(imageryLbelProvider);
+          console.log(viewer);
+
+          //加载中国省界线
+          var BoundLayer = viewer.dataSources.add(Cesium.GeoJsonDataSource.load('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json', {//json文件路径
+            stroke: Cesium.Color.YELLOW,              // 多边形轮廓的默认颜色
+            fill: Cesium.Color.CYAN.withAlpha(0),     // 多边形内部的默认颜色。
+            markerColor: Cesium.Color.RED,            // 获取或设置为每个点创建的地图针脚的默认颜色
+            strokeWidth: 10,                          // 线段或者多边形默认宽度
+            markerSymbol: 'name'                      // 是被标注字段
+            //clampToGround: true
+          }));
+          // var BoundLayer = new Cesium.GeoJsonDataSource.load("https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json",{strokeWidth: 1});
+          // var BoundLayer = new Cesium.GeoJsonDataSource.load("data/china_boundary_line.json",{strokeWidth: 1});
+          // viewer.dataSources.add({BoundLayer:{material:Cesium.Color.ORANGE.withAlpha(0.5)}});
+          //加载南水北调三条线路
+          var west =new Cesium.GeoJsonDataSource.load("data/west1.json",{stroke:Cesium.Color.BLUE,strokeWidth: 3,clampToGround: true});
+          var middle =new Cesium.GeoJsonDataSource.load("data/middle1.json",{stroke:Cesium.Color.BLUE,strokeWidth: 3,clampToGround: true});
+          var east =new Cesium.GeoJsonDataSource.load("data/east1.json",{stroke: Cesium.Color.BLUE,strokeWidth: 3,clampToGround: true});
+          // var impor_points =new Cesium.GeoJsonDataSource.load("data/impor_points.json",{name:'点位',markerSize:12,markerColor:Cesium.Color.AQUA});
+          function CreatePointFromJson(params) {
+            var point = Cesium.GeoJsonDataSource.load('data/impor_points.json', {markerSize:12,markerColor:Cesium.Color.AQUA});
+            point.name = ["南水北调重要节点"];
+          viewer.dataSources.add(point);};
+          viewer.dataSources.add(west);
+          viewer.dataSources.add(middle);
+          viewer.dataSources.add(east);
+          CreatePointFromJson();
+        
+        function cameraWest() {
+            var camera = viewer.camera;
+            //起始点
+            var laOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(96.926294651695812,33.563602145763632,50000),
+                duration: 5,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //途径点
+            var overOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(99.09206683997472,32.1,50000),
+                duration: 10,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //终点
+            var tokyoOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(101.96169681300607,33.390826838284745,50000),
+                orientation: {
+                    heading: Cesium.Math.toRadians(15.0),
+                    pitch: Cesium.Math.toRadians(-60),
+                    roll: 0.0
+                },
+                duration: 10,
+                //flyOverLongitude: Cesium.Math.toRadians(116.2)//注意此处
+            };
+
+            laOptions.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(overOptions);
+                }, 1000);
+            };
+            overOptions.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(tokyoOptions);
+                }, 1000);
+            };
+            camera.flyTo(laOptions);
+        }
+        function cameraMiddle() {
+            var camera = viewer.camera;
+            //起始点
+            var laOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(111.494054,32.3,20000),
+                duration: 5,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //途径点1
+            var overOptions1 = {
+                destination: Cesium.Cartesian3.fromDegrees(114,34.5,50000),
+                duration: 5,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //途径点2
+            var overOptions2 = {
+                destination: Cesium.Cartesian3.fromDegrees(113.290384,35,20000),
+                duration: 5,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //终点
+            var tokyoOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(116.267630,39.95, 5000),
+                orientation: {
+                    heading: Cesium.Math.toRadians(15.0),
+                    pitch: Cesium.Math.toRadians(-60),
+                    roll: 0.0
+                },
+                duration: 10,
+                //flyOverLongitude: Cesium.Math.toRadians(116.2)//注意此处
+            };
+
+            laOptions.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(overOptions1);
+                }, 1000);
+            };
+            overOptions1.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(overOptions2);
+                }, 1000);
+            };
+            overOptions2.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(tokyoOptions);
+                }, 1000);
+            };
+
+            camera.flyTo(laOptions);
+        }
+        function cameraEast() {
+            var camera = viewer.camera;
+            //起始点
+            var laOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(119.563254,32.38,5000.0),
+                duration: 5,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //途径点
+            var overOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(116.224709,35.8,20000),
+                duration: 10,
+                orientation: {
+                    heading: Cesium.Math.toRadians(-15.0),
+                    pitch: -Cesium.Math.PI_OVER_FOUR,
+                    roll: 0.0
+                }
+            };
+            //终点
+            var tokyoOptions = {
+                destination: Cesium.Cartesian3.fromDegrees(117.121811,39.21, 5000.0),
+                orientation: {
+                    heading: Cesium.Math.toRadians(15.0),
+                    pitch: Cesium.Math.toRadians(-60),
+                    roll: 0.0
+                },
+                duration: 10,
+                //flyOverLongitude: Cesium.Math.toRadians(116.2)//注意此处
+            };
+
+            laOptions.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(overOptions);
+                }, 1000);
+            };
+            overOptions.complete = function () {
+                setTimeout(function () {
+                    camera.flyTo(tokyoOptions);
+                }, 1000);
+            };
+
+            camera.flyTo(laOptions);
+        }
+        </script>
+        <div class="leaflet-control-attribution leaflet-control" style="position:absolute;right:27px;bottom:20px">© 2022 高德软件 GS京(2022)1061号</div>
+        <div class="map3d-clear" title="3D西线漫游"style="position:absolute;left:20px;bottom:20px" onclick="cameraWest()"></div>
+        <div class="map3d-clear2" title="3D中线漫游"style="position:absolute;left:60px;bottom:20px" onclick="cameraMiddle()"></div>
+        <div class="map3d-clear3" title="3D东线漫游"style="position:absolute;left:100px;bottom:20px" onclick="cameraEast()"></div>
+        </div>
+        </div>
+      </li>
+      </ul>
+  </div>
+  <div class="modal-container" id="modal-opened">
+    <div class="modal">
+  
+      <div class="modal__details">
+        <h1 class="modal__title">虚拟地球操作说明</h1>
+        <p class="modal__description">蓝色线路：南水北调西中东三条线路;<br>荧光蓝点位：南水北调重大工程点位；<br>点击点位后，点击摄像头拉近到该工程场景</p>
+      </div>
+  
+      <p class="modal__text">
+        左下角按钮功能<br>
+          ——实现线路场景漫游<br><br>
+        
+        右上角按钮功能<br>
+          ——放大镜：输入英文地点搜索并移动至该点位<br>
+          ——房子：页面初始化<br>
+          ——经纬网：二维三维转换<br>
+          ——影像：图层选择（推荐使用Bing Maps（遥感图）和Esri World Street Map（矢量图））<br>
+          ——问号：鼠标操作帮助，Ctrl+鼠标实现“三维可视化”操作观察立体地形<br><br>
+      </p>
+  
+  
+      <a href="#modal-closed" class="link-2"></a>
+  
+    </div>
+  </div>
+  <!-- <button type="button" style="position:absolute;right:895px;top:100px" onclick="cameraWest()">西线漫游</button>
+  <button type="button" style="position:absolute;right:835px;top:100px" onclick="cameraMiddle()">中线漫游</button>
+  <button type="button" style="position:absolute;right:775px;top:100px" onclick="cameraEast()">东线漫游</button> -->
+
+  </body>
+</html>

@@ -1,0 +1,1320 @@
+<!doctype html>
+<html>
+<head>
+<title>南水北调政策解读</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>#chart-panel {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+/* CSS Document */
+*{
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ box-sizing: border-box}
+*,body{padding:0px; margin:0px;font-family: "微软雅黑";}
+body{color:#fff;font-size: 16px; background: #033c76;
+    background: -webkit-radial-gradient(50% 35%, farthest-corner,#034f8e,#034987,#02366d,#002353);
+    background: radial-gradient(50% 35%, farthest-corner,#034f8e,#034987,#02366d,#002353);
+}
+html,body{height: 100%;}
+@font-face {
+			  font-family: 'iconfont';
+			  src: url('font/iconfont.woff2?t=1651660703904') format('woff2'),
+			       url('font/iconfont.woff?t=1651660703904') format('woff'),
+			       url('font/iconfont.ttf?t=1651660703904') format('truetype');
+			}
+			.iconfont {
+			  font-family: "iconfont";
+			  font-size: 20px;
+			  font-style: normal;
+			  -webkit-font-smoothing: antialiased;
+			  -moz-osx-font-smoothing: grayscale;
+			}
+            /* defaults */
+/* =============================================== */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  --light: hsl(0, 0%, 100%);
+  --background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', sans-serif;
+}
+
+a,
+a:link {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+/* modal */
+/* =============================================== */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: hsla(0, 0%, 40%, .6);
+}
+
+/* using :target */
+.modal-container:target {
+  display: flex;
+}
+
+.modal {
+  width: 60rem;
+  padding: 4rem 2rem;
+  border-radius: .8rem;
+
+  color: var(--light);
+  background: var(--background);
+  box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
+  position: relative;
+
+  overflow: hidden;
+}
+
+.modal__details {
+  text-align: center;
+
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid hsla(0, 0%, 100%, .4);
+}
+
+.modal__title {
+  font-size: 3.2rem;
+}
+
+.modal__description {
+  margin-top: 2rem;
+
+  font-size: 1.6rem;
+  font-style: italic;
+}
+
+.modal__text {
+  padding: 0 4rem;
+  margin-bottom: 4rem;
+
+  font-size: 1.6rem;
+  line-height: 2;
+}
+
+.modal__text::before {
+  content: '';
+
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+
+  width: 18rem;
+  height: 18rem;
+  border: 1px solid hsla(0, 0%, 100%, .2);
+  border-radius: 100rem;
+
+  pointer-events: none;
+}
+
+.modal__btn {
+  padding: 1rem 5.8rem;
+  border: 1px solid hsla(0, 0%, 100%, .4);
+  border-radius: 100rem;
+
+  color: inherit;
+  background: transparent;
+  font-size: 1.4rem;
+  font-family: inherit;
+  letter-spacing: .1rem;
+
+  transition: .2s;
+  cursor: pointer;
+  margin-bottom:1rem ;
+}
+
+.modal__btn:hover,
+.modal__btn:focus {
+  border-color: hsla(0, 0%, 100%, .6);
+  transform: translateY(-.2rem);
+}
+
+/* links */
+/* =============================================== */
+.link-1 {
+  font-size: 1.8rem;
+
+  color: var(--light);
+  background: var(--background);
+  box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
+  border-radius: 100rem;
+  padding: 1.4rem 3.2rem;
+
+  transition: .2s;
+}
+
+.link-1:hover,
+.link-1:focus {
+  transform: translateY(-.2rem);
+  box-shadow: 0 0 4.4rem .2rem hsla(236, 50%, 50%, 0.4);
+}
+
+.link-2 {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid hsla(0, 0%, 100%, .4);
+  border-radius: 100rem;
+
+  color: inherit;
+  font-size: 2.2rem;
+
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: .2s;
+}
+
+.link-2::before {
+  content: '×';
+
+  transform: translateY(-.1rem);
+}
+
+.link-2:hover,
+.link-2:focus {
+  border-color: hsla(0, 0%, 100%, .6);
+  transform: translateY(-.2rem);
+}
+
+/* Second Version Link */
+/* =============================================== */
+.second-version-link,
+.second-version-link:link {
+  color: hsl(236, 50%, 50%);
+  padding: .8rem 1.6rem .8rem .2rem;
+  border-bottom: 2px solid hsl(236, 50%, 50%);
+
+  font-size: 1.4rem;
+  font-weight: bold;
+
+  position: absolute;
+  top: 4rem;
+  right: 4rem;
+}
+
+.second-version-link::after {
+  content: '\2197';
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-size: .9em;
+}
+
+.abs-site-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: hsla(0, 0%, 0%, .6);
+  font-size: 1.6rem;
+}
+</style>
+<script src="https://lib.baomitu.com/echarts/4.8.0/echarts.min.js"></script>
+<script src=""></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body translate="no">
+
+
+        <div class="modal-container" id="modal-opened">
+            <div class="modal">
+        
+            <div class="modal__details">
+                <h1 class="modal__title">网页指南</h1>
+                <p class="modal__description">该网页分为两部分：重要节点和政策报告</p>
+            </div>
+        
+            <p class="modal__text">&nbsp&nbsp&nbsp网页通过思维导图的形式介绍南水北调的重要建设时间节点，并简单解读了建设时期相关政策实施内容。点击右下角切换主题，将鼠标悬停于右侧页面的小圆点上可显示详细内容，点击部分小圆点还可以跳转到相关网页</p>
+            
+            <button class="modal__btn" onclick="gotopage('http://www.gov.cn/zhengce/')"style="width: 28rem;">前往国务院政策专区 &rarr;</button>
+            <button class="modal__btn" onclick="gotopage('http://www.chinawater.com.cn/')"style="width: 26rem;">前往中国水利网 &rarr;</button>
+            <button class="modal__btn" onclick="gotopage('https://www.cweun.org/')"style="width: 28rem;">前往中国水利协会 &rarr;</button>
+            <button class="modal__btn" onclick="gotopage('http://nsbd.mwr.gov.cn/')" style="width: 26rem;">前往南水北调官网 &rarr;</button>
+
+            <a href="#modal-closed" class="link-2"></a>
+        
+            </div>
+        </div>
+              
+<div id="chart-panel" style="margin-top:45px;"></div>
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <script type="text/javascript">
+        function gotopage(url)
+        {
+            window.open(url);
+        }
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart-panel'));
+option = {
+            xAxis: {
+                min: 0,
+                max: 1000,
+                show: false,
+                type: 'value'
+            },
+            yAxis: {
+                min: 0,
+                max: 1000,
+                show: false,
+                type: 'value'
+            },     	 
+            legend:{
+                left:'right',
+                top:'bottom',
+                orient:'vertical',
+                selectedMode:'single',
+                textStyle:{
+                    color:'write',
+                    fontSize:18
+                },
+                data:[{
+                    name:'重要节点'
+                },{
+                    name:'政策报告'
+                }]
+            },
+            tooltip:{
+                enterable: true,
+                textStyle: {
+                    color: 'black',
+                    decoration: 'none',
+                },
+            },
+            series:[{
+                name:'重要节点',
+                type:'graph',
+                draggable: false,
+                coordinateSystem: "cartesian2d",
+                itemStyle:{
+                    color:'cyan'
+                },
+                label:{
+                    show:true,
+                    position:'right',
+                    fontSize:30
+                },
+                data:[{
+                    name:'1952年',
+                    value:[250,950],
+					symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '毛主席视察黄河<br>'+
+                                '<img src="images2/mao.png">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'毛主席首次提出南水北调思想',
+                    value:[650,950],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:120px;width:470px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      ' 1952年10月30日，毛主席视察黄河,'+
+                                      '<br> 在听取时任黄河水利委员会主任王化云关于引江济黄设想的汇报后，'+
+                                      '<br> 说："南方水多，北方水少，如有可能，借点水来也是可以的。"'+
+								 	  '<br> 这是南水北调宏伟设想的首次提出。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      ' 点击圆点阅读一段毛主席与南水北调规划的史料'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    name:'1958年',
+                    value:[250,820],
+					symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '毛主席视察黄河<br>'+
+                                '<img src="images2/mao.png">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'第一次正式提出南水北调',
+                    value:[650,820],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:75px;width:580px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      ' 1958年8月，《中共中央关于水利工作的指示》颁布，第一次正式提出南水北调。'+
+                                      '<br> 中科院和水电部联合召开会议，并且确定了南水北调的基本方针。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      ' 点击圆点了解21世纪前南水北调的探索规划过程'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    name:'2000年',
+                    value:[250,620],
+                    symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '江泽民主席视察葛洲坝建设<br>'+
+                                '<img src="images2/jiang.jpg">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'确定南水北调东、中、西三条线路',
+                    value:[650,620],
+                    symbolSize:20   ,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:215px;width:450px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      ' 东线利用江苏省已有的江水北调工程，借京杭大运河及与平行 <br> 河道逐级提水北送。'+
+                                      '<br> 中线由丹江口大坝加高后扩容的丹江口水库调水，自流至北京。'+
+                                      '<br> 西线在长江上游及其支流筑坝建库，开凿穿过长江黄河分水岭的'+'<br> 输水隧洞，调长江水入黄河上游。'+
+                                      '<br> 通过三条调水线路与长江、黄河、淮河和海河四大江河的联系，'+
+							     	  '<br> 构成以“四横三纵”为主体的总体布局，以利于实现中国水资源'+
+									  '<br> 南北调配、东西互济的合理配置格局。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读南水北调工程总体简介'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    name:'2002年',
+                    value:[250,500],
+                    symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '江泽民主席视察葛洲坝建设<br>'+
+                                '<img src="images2/jiang.jpg">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'南水北调工程开工',
+                    value:[650,500],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:100px;width:440px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      '2002年12月27日，时任国务院总理朱镕基在人民大会堂宣布：'+
+                                      '<br>“南水北调工程开工”。同年，东线开工，起点三江口。'+
+                                      '<br>次年12月31日，中线开工，起点丹江口。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读当年相关新闻稿'+
+									  '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    
+                    name:'2013年',
+                    value:[250,330],
+                    symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '习近平主席考察丹江口水库<br>'+
+                                '<img src="images2/xi.jpg">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'南水北调东线工程正式通水',
+                    value:[650,330],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:70px;width:380px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      '2013年11月，东线一期工程通水，自扬州江都水利'+
+                                      '<br>枢纽取长江水，供水范围涉及江苏、安徽、山东三省。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点观看东线通水央视新闻'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+					},
+                },{
+                    name:'2014年',
+                    value:[250,220],
+                    symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '习近平主席考察丹江口水库<br>'+
+                                '<img src="images2/xi.jpg">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'南水北调中线工程正式通水',
+                    value:[650,220],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:95px;width:350px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      '2013年，南水北调中线一期工程主体工程完工，'+
+                                      '<br>2014年12月，中线一期工程通水，从丹江口水库'+
+                                      '<br>取汉江水，向河南、河北、北京、天津供水。'+     
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点观看中线通水央视新闻'+                              
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    name:'2022年',
+                    value:[250,50],
+                    symbolSize:70,
+                    label:{
+                        position:'left',
+                        offset:[-50,0]
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        padding:0,
+                        borderWidth:0,
+                        backgroundColor: "transparent",
+                        borderColor:'transparent',
+                        textStyle:{
+                            color:'pink',
+                            align:'center',
+                            fontWeight: 'bold',
+                            fontSize: '20',  
+                            lineHeight:'150%',
+                            },
+                        formatter: function (params) {
+                            var Val='<div style="width:300px;height:200px;">' +
+                                '习近平主席考察丹江口水库<br>'+
+                                '<img src="images2/xi.jpg">';
+                            return Val;
+                        }
+                    },
+                },{
+                    name:'南水北调河长制',
+                    value:[650,100],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';                            
+                            tipHtml = '<div style="height:195px;width:455px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +                                      
+                                      '2022年2月，北京市河长制办公室正式印发'+
+                                      '<br>《关于在南水北调工程全面推行河湖长制的实施方案》，'+
+                                      '<br>将南水北调中线一期北京段工程全面纳入河湖长制工作体系，'+
+                                      '<br>自此南水北调工程开始全面推行河湖长制。'+
+                                      '<br>企望及时协调解决南水北调工程安全管理中的突出问题，'+
+                                      '<br>构建责任明确、协调有序、监管严格、保护有力的管理保护机制，'+
+                                      '<br>切实维护好南水北调工程安全、供水安全、水质安全。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读中国水利报报导'+
+                                      '</div>';
+                            return tipHtml;                                
+                        }
+                    },
+                },{
+                    name:'南水北调至今',
+                    value:[650,20],
+                    symbolSize:20,
+                    label:{offset:[10,0]},
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';                            
+                            tipHtml = '<div style="height:75px;width:430px;border-radius:5px;background:rgba(50,50,50,0.3);color:white;font-size:16px;line-height:150% ">' +
+                                      '2022年12月12日，是南水北调工程全面通水8周年。'+
+                                      '<br>如今已累计向北方调水近586亿立方米，受益人口达1.5亿人。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读新华社报导'+
+                                      '</div>';
+                            return tipHtml;                                
+                        }
+                    },                 
+                }],
+            },{
+                name:'重要节点',
+                type:"effectScatter",
+                coordinateSystem:'cartesian2d',
+                silent:true,
+                rippleEffect:{
+                    brushType:'stroke',
+                    scale:2
+                },
+                itemStyle:{
+                    color:'#99CCFF'
+                },
+                data:[{
+                    value:[250,950],
+                    symbolSize:70
+                },{
+                    value:[250,820],
+                    symbolSize:70
+                },{
+                    value:[250,620],
+                    symbolSize:70
+                },{
+                    value:[250,500],
+                    symbolSize:70
+                },{
+                    value:[250,330],
+                    symbolSize:70
+                },{
+                    value:[250,220],
+                    symbolSize:70
+                },{
+                    value:[250,50],
+                    symbolSize:70
+                },]
+            },{
+                name:'重要节点',
+                type:'lines',
+                coordinateSystem:'cartesian2d',
+                zlevel:2,
+                effect:{
+                    show:true,
+                    symbolSize:10,
+                    symbol:'triangle'
+                },
+                tooltip:{
+                    show:false
+                },
+                lineStyle:{
+                    curveness:0.1,
+                    opacity:0.2,
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0, color: 'red'
+                    }, {
+                        offset: 1, color: 'yellow'
+                    }], false),
+                    width: 3,
+                },
+                data:[
+                      {coords:[[250,950],[250,820]],lineStyle:{curveness:0}},
+                      {coords:[[250,820],[250,620]],lineStyle:{curveness:0}},
+                      {coords:[[250,620],[250,500]],lineStyle:{curveness:0}},
+                      {coords:[[250,500],[250,330]],lineStyle:{curveness:0}},
+                      {coords:[[250,330],[250,220]],lineStyle:{curveness:0}},
+                      {coords:[[250,220],[250,50]],lineStyle:{curveness:0}},
+                      {coords:[[250,950],[650,950]]},   
+                      {coords:[[250,820],[650,820]]},  
+                      {coords:[[250,620],[650,620]]},                     
+                      {coords:[[250,500],[650,500]]},                 
+                      {coords:[[250,330],[650,330]]},
+                      {coords:[[250,220],[650,220]]},
+                      {coords:[[250,50],[650,100]]},
+                      {coords:[[250,50],[650,25]]},
+                    ]
+            },{
+                name:'政策报告',
+                type:'graph',
+                draggable: false,
+                coordinateSystem: "cartesian2d",
+
+                label:{
+                    show:true,
+                    position:'right',
+                    fontSize:22
+                },
+                itemStyle:{
+                    color:'#1AE66B'
+                },
+                data:[{
+                    name:'政策报告',
+                    value:[500,500],
+                    symbolSize:150,
+                    label:{
+                        position:'middle',
+                        offset:[-20,-250],
+						textStyle: {
+                            fontSize: 48,
+                            fontWeight:'bolder'
+                        },
+                    },
+                    
+                    tooltip:{
+                        show:true,
+                        padding:0,
+                        formatter:function(params){
+						var tipHtml = '';
+                            tipHtml = '<div style="height:20px;width:400px;border-radius:5px;color:pink">' +
+                                      ' 通过对运营管理和工程建设的举例解读，初步了解南水北调政策'+
+                                      '</div>';
+                            return tipHtml;
+						}
+                    }
+                },{
+                    name:'运营管理',
+                    value:[350,500],
+                    symbolSize:80,
+                    label:{
+                        position:'right',
+                        offset:[-10,-180],
+                        textStyle: {
+                            fontSize:28,
+                            fontWeight:'bold'
+                        },
+                    },
+                    tooltip:{
+                        show:true,
+                        padding:0,
+                        formatter:function(params){
+						var tipHtml = '';
+                            tipHtml = '<div style="height:20px;width:360px;border-radius:5px;color:pink">' +
+                                      ' 供水盈亏、防污治理、民生经济、资金流动、人员编制......'+
+                                      '</div>';
+                            return tipHtml;
+						}
+                    }
+                },{
+                    name:'工程建设',
+                    value:[650,500],
+                    symbolSize:80,
+                    label:{
+                        position:'left',
+                        offset:[10,-180],
+                        textStyle: {
+                            fontSize:28,
+                            fontWeight:'bold'
+                        },
+                    },
+                    tooltip:{
+                        show:true,
+                        padding:0,
+                        formatter:function(params){
+						var tipHtml = '';
+                            tipHtml = '<div style="height:20px;width:370px;border-radius:5px;color:pink">' +
+                                      '水资源分配、路线规划、生产建设、地点选址、设施巩固......'+
+                                      '</div>';
+                            return tipHtml;
+						}
+                    }
+                },{
+                    name:'《长江流域利用规划要点报告》',
+                    value:[700,750],
+                    symbolSize:20,
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:105px;width:345px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：1959年   修订审批时间：1988年'+
+                                      '<br>出处：《水利水电技术》1990年08期'+
+                                      '<br>内容解读：该报告综述了长江流域的气候水文资源环境，'+
+							          '<br>提出南水北调总的布局是从长江上、中、下游分别调水，'+
+									  '<br>引水到北方缺水区域。这拉开了南水北调工程的序幕。'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    name:'《南水北调工程总体规划》',
+                    value:[725,500],
+                    symbolSize:20,
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:210px;width:485px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2002年'+
+									  '<br>来源：国家计委、水利部'+			
+                                      '<br>相关政策：'+
+									  '<br>1991年   《南水北调中线规划报告》《南水北调中线工程初步可行性研究报告》'+
+							       	  '<br>2001年   《南水北调东线工程规划》《南水北调中线工程规划》'+
+                                      '<br>内容解读：经过数十年研究，南水北调工程总体格局定为西、中、东三条线路。'+
+									  '<br>相关规划计算了受水区的缺水总量，阐明了南水北调三线的可行性及输水潜力，'+
+									  '<br>发布了三线的路线规划，调水目标，根据建设规模划分工期，'+
+								      '<br>并分配好后续建设管理运营工作。其中，西线仍处于可行性研究的过程中。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读国家发改委关于南水北调的基本情况介绍'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    },
+                },{
+                    name:'《南水北调工程建设管理的若干意见》',
+                    value:[700,250],
+                    symbolSize:20,
+                    tooltip:{
+                        show:true,
+                        padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        formatter:function(params){
+                            var tipHtml = '';
+                            tipHtml = '<div style="height:170px;width:465px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2004年'+
+                                      '<br>出处：《中国水利报》（2004）'+
+                                      '<br>内容解读：意见明确了南水北调工程的建设管理体制：国务院南水北调工程'+
+									  '<br>建设委员会（南水北调办）成为工程建设高层次决策机构，决定南水北调'+
+									  '<br>	工程建设的重大方针、政策、措施和其他重大问题。也明确了工程市场'+
+									  '<br>	管理投资合作和负责人制度，对生产施工安全、工程监督验收工作提出明确'+
+							          '<br> 要求。意见在南水北调后续工程建设实施，安全管理和调度管理，强化水质'+
+								      '<br>	监测保护,充分发挥调水能力等方面着力提升工程效益。'+
+                                      '</div>';
+                            return tipHtml;
+                        }
+                    }
+                },{
+                    	name:'《国务院南水北调工程建设委员会办公室\n主要职责内设机构和人员编制规定》',
+                    	value:[300,900],
+                    	symbolSize:20,
+						label:{
+                        	position:'left',
+						},
+                    	tooltip:{
+                      		show:true,
+                              padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        	formatter:function(params){
+                            	var tipHtml = '';
+                            	tipHtml = '<div style="height:230px;width:465px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2003年'+
+                                      '<br>来源：国务院（国办发〔2003〕71号）'+
+                                      '<br>根据国务院决定，设立国务院南水北调工程建设委员会办公室(正部级)，'+
+									  '<br>作为国务院南水北调工程建设委员会的办事机构。其职责详细划分：'+
+									  '<br>	负责提出南水北调工程建设的有关法律政策和管理办法，监督验收工程，'+
+									  '<br>	协调水价、调水量、建设资金，组织生态保护和移民安置工作，宣传交流。'+
+							          '<br> 由此分设6大职能机构：综合司、投资计划司、经济与财务司、建设管理司、'+
+								      '<br>	环境与移民司、监督司。机关行政编制为70名。主任1名，副主任4名，'+
+									  '<br>	司局级领导职数21名(含总工程师、总经济师和机关党委专职副书记各1名)。'+
+									  '<br>	该规定落实了南水北调工程的负责人及责任归属，有序组织工程建设管理。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读国务院相关文件'+
+                                      '</div>';
+                            	return tipHtml;
+                        }
+                    },
+                },{
+                    	name:'《南水北调工程供用水管理条例》',
+                    	value:[300,750],
+                    	symbolSize:20,
+						label:{
+                        	position:'left',
+						},
+                    	tooltip:{
+                      		show:true,
+                              padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        	formatter:function(params){
+                            	var tipHtml = '';
+                            	tipHtml = '<div style="height:230px;width:480px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2014年'+
+                                      '<br>来源：国务院（国务院令第647号）'+
+                                      '<br>国家对南水北调工程的运行和维护工作支持并负责，为确保南水北调工程供用'+
+									  '<br>水安全，对水源地、调水沿线区域的产业结构调整、生态环境保护予以支持。'+
+									  '<br>	水源地适时、适量向调水下游区调水，接受统筹协调安排，做好紧急预案。'+
+									  '<br>	当地相关政府负责合理规划，限制管理沿线附近区域农牧业工业活动，'+
+							          '<br> 在南水北调后续工程建设实施，安全管理和调度管理，强化水质监测保护,'+
+								      '<br>	禁止排污，建立人工湿地等方式保护水质。受水区域减少对地下水开采。'+
+									  '<br>	划立南水北调工程保护范围，不得用于其他用途。水价方面，实行基本'+
+									  '<br>	水价和计量水价制度。该条例全面展示了如今南水北调工程的运营程序。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读国务院相关文件'+
+                                      '</div>';
+                            	return tipHtml;
+                        }
+                    },
+                },{
+                    	name:'《南水北调工程基金筹集和使用管理办法》',
+                    	value:[300,600],
+                    	symbolSize:20,
+						label:{
+                        	position:'left',
+						},
+                    	tooltip:{
+                      		show:true,
+                              padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        	formatter:function(params){
+                            	var tipHtml = '';
+                            	tipHtml = '<div style="height:170px;width:480px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2004年'+
+                                      '<br>来源：国务院（国办发〔2004〕86号）'+
+                                      '<br>南水北调工程基金在南水北调工程受水区筹集基金，当地人民政府负责并上缴。'+
+									  '<br>基金专项用于南水北调主体工程建设，建设完成后则用来偿还建设贷款。'+
+									  '<br>所有南水北调沿线使用水资源的单位均需缴纳南水北调工程基金。'+
+									  '<br>	筹集南水北调工程建设资金，规范南水北调工程基金筹集和使用管理，'+
+									  '<br>	这样才能确保南水北调工程建设顺利实施。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读国务院相关文件'+
+                                      '</div>';
+                            	return tipHtml;
+                        }
+                    },
+                },{
+                    	name:'《南水北调工程水污染防治规划》',				
+                    	value:[300,450],
+                    	symbolSize:20,
+						label:{
+                        	position:'left',
+						},
+                    	tooltip:{
+                      		show:true,
+                              padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        	formatter:function(params){
+                            	var tipHtml = '';
+                            	tipHtml = '<div style="height:150px;width:440px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2003年'+
+                                      '<br>来源：中国环境规划院'+
+                                      '<br>规划列举了多个关键水质问题，这对于南水北调的水质要求提出了标准。'+
+									  '<br>根据实际，如东线被要求达到III类，而中线丹江口水质需要达到II类。'+
+									  '<br>并且以东线为例，提出将污染治理区域划分多个控制区多个控制单元，'+
+									  '<br>	采取“治、截、导、用、整”，利用水利设施、土地改造、增加湿地，'+
+									  '<br>	惩罚污染者等手段完成治污。借该规划，能窥见国家对水质保障的重视。'+
+                                      '</div>';
+                            	return tipHtml;
+                        }
+                    },
+                },{
+                    	name:'《南水北调工程征地移民政策与管理体制》',
+                    	value:[300,300],
+                    	symbolSize:20,
+						label:{
+                        	position:'left',
+						},
+                    	tooltip:{
+                      		show:true,
+                              padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        	formatter:function(params){
+                            	var tipHtml = '';
+                            	tipHtml = '<div style="height:230px;width:540px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2006年'+
+                                      '<br>来源：国务院南水北调办公室'+
+									  '<br>相关政策：《南水北调工程征地移民验收管理办法》'+
+								      '<br>《南水北调工程征地移民资金管理办法》、《南水北调工程征地移民监理管理规定》、'+
+								      '<br>《南水北调工程征地移民监测管理规定》、《南水北调工程征地移民统计管理办法》、'+
+                                      '<br>南水北调工程大兴水利设施，必然会产生移民问题，如丹江口水库水位提高会淹没移民，'+
+									  '<br>和沿线施工征地移民。据此，相关政策坚持“以人为本”出发，增列困难移民住房补助'+
+									  '<br>资金，按照前期补偿、补助与后期扶持相结合原则, 使移民恢复到原有生活水平。'+
+									  '<br>当地政府负责移民工作，对拆迁补偿等系列问题，受南水北调办公室监督考察。'+
+									  '<br>南水北调工程移民补偿和安置标准, 在政策允许的范围内, 根据实际情况出发，'+
+									  '<br>虽然难以尽善尽美，但尽可能考虑到了移民的利益,还给工程移民们一个合理的交代。'+
+                                      '</div>';
+                            	return tipHtml;
+                        }
+                    },
+                },{
+                    	name:'《关于在南水北调工程全面推行河湖长制的实施方案》',
+                    	value:[300,150],
+                    	symbolSize:20,
+						label:{
+                        	position:'left',
+						},
+                    	tooltip:{
+                      		show:true,
+                              padding:5,
+                        borderColor: '#1AE66B',
+                        borderWidth: 2,
+                        	formatter:function(params){
+                            	var tipHtml = '';
+                            	tipHtml = '<div style="height:225px;width:485px;border-radius:5px;background:rgba(50,50,50,0.3);color:white">' +
+                                      '发布时间：2022年'+
+                                      '<br>来源：水利部'+
+                                      '<br>时至今日，南水北调工程已稳定调水多年，近年推行的河湖长制度也涉及此处。'+
+									  '<br>方案指出在南水北调沿线分级分段设立省、市、县、乡、村五级河长组织体系，'+
+									  '<br>	责任层层落实，村级河长展开日常巡查，早发现早处置，及时向上反馈，'+
+									  '<br>	上级河长则进行督导，考核绩效，强化激励问责，维护属地水安全问题。'+
+							          '<br> 南水北调工程河长的主要任务包括：'+
+								      '<br>	开展工程巡查执法，将南水北调工程纳入各级河长巡查任务；'+
+                                      '<br> 确保工程运行安全,排查整治工程安全、水质安全问题；'+
+                                      '<br>	保障工程安全度汛，协调工程防汛所需应急抢险物资、抢险力量的调配等。'+
+                                      '<div style="color:silver;font-style:italic;font-family:楷体;text-decoration:underline;">' +
+                                      '点击圆点阅读政策发布公告'+
+                                      '</div>';
+                            	return tipHtml;
+                        }
+                    },
+                },{
+                    	name:'主要相关网站：国务院 水利部 中国水利协会 南水北调工程  ',
+                    	value:[500,0],
+                    	symbolSize:0.0001,
+						label:{
+                        	position:'middle',
+							offset:[-250,-20]
+						},
+                        tooltip:{show:false}
+                }],
+            },{
+                name:'政策报告',
+                type:"effectScatter",
+                coordinateSystem:'cartesian2d',
+                silent:true,
+                rippleEffect:{
+                    brushType:'stroke',
+                    scale:3
+                },
+                itemStyle:{
+                    color:'#90F7CE'
+                },
+                data:[{
+                    value:[500,500],
+                    symbolSize:150
+                },{
+                    value:[350,500],
+                    symbolSize:80
+                },{
+                    value:[650,500],
+                    symbolSize:80
+            
+                }]
+            },{
+                name:'政策报告',
+                type:'lines',
+                coordinateSystem:'cartesian2d',
+                zlevel:2,
+                effect:{
+                    show:true,
+                    symbolSize:10,
+                    symbol:'triangle'
+                },
+                tooltip:{
+                    show:false
+                },
+                lineStyle:{
+                    curveness:0,
+                    opacity:0.2,
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0, color: '#58B3CC'
+                    }, {
+                        offset: 1, color: '#F58158'
+                    }], false),
+                    width: 2,
+                },
+                data:[
+                      {coords:[[500,500],[350,500]],lineStyle:{curveness:0}},
+                      {coords:[[500,500],[650,500]],lineStyle:{curveness:0}},
+                      {coords:[[700,750],[725,500]],lineStyle:{curveness:0.1}},
+					  {coords:[[725,500],[700,250]],lineStyle:{curveness:0.1}},
+					  {coords:[[650,500],[700,750]],lineStyle:{curveness:0.1}},
+					  {coords:[[700,250],[650,500]],lineStyle:{curveness:0.1}},				
+                      {coords:[[350,500],[300,900]],lineStyle:{curveness:-0.1}},
+                      {coords:[[350,500],[300,750]],lineStyle:{curveness:-0.1}},
+					  {coords:[[350,500],[300,600]],lineStyle:{curveness:-0.1}},
+					  {coords:[[350,500],[300,450]],lineStyle:{curveness:0.1}},
+					  {coords:[[350,500],[300,300]],lineStyle:{curveness:0.1}},
+					  {coords:[[350,500],[300,150]],lineStyle:{curveness:0.1}},
+                    ]
+            },
+],
+            animationDuration:5000,
+            animationDelay:500
+        }
+
+        
+if(option){
+myChart.setOption(option);
+}
+
+myChart.on('click', function(params) {
+    if (params.name==="毛主席首次提出南水北调思想") {
+        window.open('http://www.cppcc.gov.cn/zxww/2019/11/28/ARTI1574909686326463.shtml' );
+    }  
+    else if (params.name==="第一次正式提出南水北调") {
+        window.open('http://nsbd.mwr.gov.cn/zx/zj/ts5zn/4/201912/t20191206_1374008.html' );
+    }
+    else if (params.name==="确定南水北调东、中、西三条线路") {
+        window.open('http://nsbd.mwr.gov.cn/zw/gcgk/' );
+    }
+    else if (params.name==="南水北调工程开工") {
+        window.open('http://news.sohu.com/49/49/news205274949.shtml' );
+        window.open('http://news.sohu.com/68/30/news205273068.shtml' );
+        window.open('https://news.sina.com.cn/w/2003-12-31/03501468607s.shtml' );
+    }
+    else if (params.name==="南水北调东线工程正式通水") {
+        window.open('https://tv.cctv.com/2013/12/10/VIDE1386633062431426.shtml' );
+    }
+    else if (params.name==="南水北调中线工程正式通水") {
+        window.open('https://tv.cctv.com/2014/12/12/VIDE1418393336219833.shtml' );
+    } 
+    else if (params.name==="南水北调河长制") {
+        window.open('http://www.hwcc.gov.cn/sxdzt/lshzzhhglzd/hzzmtjj/202203/t20220330_100233.html' );
+    }
+    else if (params.name==="南水北调至今") {
+        window.open('https://www.gov.cn/xinwen/2022-12/12/content_5731608.htm' );
+    }
+});
+
+myChart.on('click', function(params) {
+    if (params.name==="《南水北调工程总体规划》") {
+        window.open('https://www.ndrc.gov.cn/xwdt/xwfb/200507/t20050708_958444.html' );
+    }  
+    else if (params.name==="《国务院南水北调工程建设委员会\n办公室主要职责内设机构和人员编制规定》") {
+        window.open('http://www.gov.cn/zhengce/content/2008-03/28/content_3043.htm' );
+    }
+    else if (params.name==="《南水北调工程供用水管理条例》") {
+        window.open('http://www.gov.cn/zhengce/2014-02/28/content_2625853.htm' );
+    }
+    else if (params.name==="《南水北调工程基金筹集和使用管理办法》") {
+        window.open('http://www.gov.cn/zhengce/content/2008-03/28/content_3012.htm' );
+    }
+    else if (params.name==="《关于在南水北调工程全面\n推行河湖长制的实施方案》") {
+        window.open('http://nsbd.mwr.gov.cn/zx/zxdt/202201/t20220130_1561132.html' );
+    }
+});
+
+
+
+
+    </script>
+
+<div class="head clearfix">
+
+
+    <h1 class="pulll_left">南 水 北 调 政 策 解 读</h1>
+        <div class="menu menu2 pulll_left">
+        <ul>      
+            <li><a href="index.html">
+            <span class="iconfont">&#xe648;</span>
+            </a>
+            </li>
+            <li><a href="present.html">
+            <span class="iconfont">&#xe671;</span>
+            </a>
+            </li>
+            <li><a href="TransWater.html">
+            <span class="iconfont">&#xe737;</span>
+            </a>
+            </li>			
+            <li><a href="policy.html" >
+            <span class="iconfont" style="color: yellow;">&#xe62e;</span>
+            </a>
+            </li>
+            <li>
+            <a href="#modal-opened" class="link-1" id="modal-closed">帮助</a>
+            </li>
+        </ul>
+        </div>
+        
+        <div class="time" id="showTime"></div>
+        <script>
+        t = new Date();
+        var y=t.getFullYear();
+        var mt=t.getMonth()+1;
+        var day=t.getDate();
+        var h=t.getHours();//获取时
+        var m=t.getMinutes();//获取分
+        var s=t.getSeconds();//获取秒
+        document.getElementById("showTime").innerHTML = y+"/"+mt+"/"+day+" "+h+":"+m+":"+s+"";
+            t = setTimeout(time,1000);//開始运行
+            function time()
+            {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+                var y=dt.getFullYear();
+                var mt=dt.getMonth()+1;
+                var day=dt.getDate();
+            var h=dt.getHours();//获取时
+            var m=dt.getMinutes();//获取分
+            var s=dt.getSeconds();//获取秒
+            document.getElementById("showTime").innerHTML = y+"/"+mt+"/"+day+" "+h+":"+m+":"+s+"";
+            t = setTimeout(time,1000); //设定定时器，循环运行     
+            } 
+        
+        </script>
+            </div>
+
+</body>
+</html>
