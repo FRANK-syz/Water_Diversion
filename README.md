@@ -1,6 +1,6 @@
 # 南水北调信息可视化平台
 
-华东师范大学 · 地理科学学院学生作品 —— 南水北调工程信息可视化平台。
+华东师范大学 · 地理科学学院学生作品 —— 南水北调工程信息可视化平台，项目时间为2022-2023年。
 
 本项目基于 **Cesium（数字地球）** 与 **ECharts** 构建，是一个纯静态前端项目，可直接部署到 **GitHub Pages** 在线浏览。
 
@@ -23,13 +23,13 @@ https://FRANK-syz.github.io/Water_Diversion/
 
 ## 依赖服务说明（需网络）
 
-网页正常显示数字地球依赖以下网络服务，均已在代码内配置密钥：
+网页正常显示数字地球依赖以下网络服务：
 
-- **Cesium Ion**：默认影像底图 + 全球地形（`Cesium.js` 中内置 access token）
-- **天地图 WMTS**：中文注记图层（`TransWater.html` 中 `https://t1.tianditu.com`）
-- **阿里云 DataV GeoJSON**：中国行政边界（`https://geo.datav.aliyun.com`）
+- **Cesium Ion**：默认影像底图 + 全球地形
+- **天地图 WMTS**：中文注记图层（天地图WMTS配置的API token已失效，不可用）
+- **阿里云 DataV GeoJSON**：中国行政边界
 
-> 提示：以上服务商用均有配额/授权限制，若部署后瓦片加载慢或空白，多为对应服务密钥配额问题，属正常现象。
+> 提示：未使用天地图作为底图时，由于中国地区的地理坐标偏移，线矢量数据无法与真实的底图精确对齐，存在一定的方位偏差。
 
 ## 本地运行
 
@@ -45,11 +45,8 @@ python -m http.server 8080
 
 ## 部署到 GitHub Pages
 
-1. 将本仓库推送（push）到你的 GitHub 账户仓库；
-2. 仓库 `Settings` → `Pages` → 在 **Build and deployment → Source** 选择 `Deploy from a branch`；
-3. **Branch** 选择 `main`，目录选择 `/ (root)`，点击 **Save**；
-4. 等待 1~2 分钟，页面会给出网址 `https://FRANK-syz.github.io/Water_Diversion/`；
-5. 打开该网址的 `index.html` →「工程可视化」即可看到 Cesium 数字地球。
+1. 将本仓库推送到你的 GitHub 账户仓库；
+2. 展示网址 `https://<GitHub用户名>.github.io/<仓库名>/`；
 
 ## 项目结构
 
@@ -66,5 +63,5 @@ Water_Diversion/
 
 ## 说明
 
-- 本项目为静态部署仓库，已剔除原始 GIS 工程数据（`data_water_trans` 目录下的 Shapefile / Geodatabase / 栅格等源数据，网页运行时并不需要它们）。
-- CesiumJS 引擎 `Cesium/` 目录自本地构建产物复制，已随仓库一并发布。
+- 本项目为学生团队作品，相应数据均从公开网站上获取，仅作为存档与学习交流使用
+- 项目和README.md全程由AI上传并完成制作，如有错漏敬请谅解
