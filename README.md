@@ -18,7 +18,7 @@ https://FRANK-syz.github.io/Water_Diversion/
 | ---- | ---- | ---- |
 | 首页 | `index.html` | 平台入口导航 |
 | 工程可视化（数字地球） | `TransWater.html` | 基于 Cesium 的三维地球，展示南水北调西/中/东三条引水线路、工程点位与三维漫游 |
-| 中国水资源现状 | `present.html` | ECharts 图表 + 逐年（2012-2021）对比页 |
+| 中国水资源现状 | `present.html` | ECharts 图表 + 逐年（2012-2021）对比页（循环展示） |
 | 相关政策解读 | `policy.html` | 政策内容 |
 
 ## 依赖服务说明（需网络）
